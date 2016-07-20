@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/na1crpmvw7huyy0l?svg=true)](https://ci.appveyor.com/project/AnderssonPeter/compressedstaticfiles)
+
 Ensure that you are using the `Kestrel` server without the IIS Integration.
 Place `app.UseCompressedStaticFiles();` before `app.UseStaticFiles();` in `Startup.Configure()`.
 
