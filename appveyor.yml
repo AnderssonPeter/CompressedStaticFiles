@@ -1,0 +1,10 @@
+# Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
+# Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
+# Full reference at http://www.appveyor.com/docs/appveyor-yml
+
+version: 1.0.{build}
+os: Visual Studio 2015 CTP
+
+build_script:
+- ps: .\appveyor.ps1
