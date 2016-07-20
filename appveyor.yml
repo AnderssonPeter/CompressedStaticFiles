@@ -7,4 +7,4 @@ version: 1.0.{build}
 os: Visual Studio 2015 CTP
 
 build_script:
-- ps: .\appveyor.ps1
+- ps: .\build.ps1
