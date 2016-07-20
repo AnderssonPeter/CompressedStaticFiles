@@ -3,10 +3,10 @@
   "description": "This will ensure that you application will serve gzipped files and brotli compressed files if the browser supports it.",
   "version": "1.0.0-*",
   "authors": [ "Peter Andersson", "Andrey Kudashkin" ],
-  "projectUrl": "https://github.com/AnderssonPeter/CompressedStaticFiles",
   "packOptions": {
     "owners": [ "Peter Andersson" ],
-    "licenseUrl": "https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE"
+    "licenseUrl": "https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE",
+    "projectUrl": "https://github.com/AnderssonPeter/CompressedStaticFiles"
   },
   "dependencies": {
     "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
