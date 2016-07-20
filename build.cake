@@ -37,7 +37,20 @@ Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
-    DotNetCoreBuild(projectFile);
+    var settings = new DotNetCoreBuildSettings() {
+        ArgumentCustomization = args => args.Append("--configuration " + configuration)
+    };
+    DotNetCoreBuild(projectFile, settings);
+});
+
+Task("Create-NuGet-Packages")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    var settings = new DotNetCorePackSettings() {
+        ArgumentCustomization = args => args.Append("--configuration " + configuration)
+    };
+    DotNetCorePack(projectFile, settings);
 });
 
 
@@ -46,7 +59,7 @@ Task("Build")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("Create-NuGet-Packages");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
