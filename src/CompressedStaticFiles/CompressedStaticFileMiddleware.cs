@@ -20,13 +20,33 @@ namespace CompressedStaticFiles
 
         private IHostingEnvironment _hostingEnv;
         private StaticFileMiddleware _base;
-        public CompressedStaticFileMiddleware(RequestDelegate next, IHostingEnvironment hostingEnv, IOptions<StaticFileOptions> options, ILoggerFactory loggerFactory)
+        public CompressedStaticFileMiddleware(RequestDelegate next, IHostingEnvironment hostingEnv, IOptions<StaticFileOptions> staticFileOptions, ILoggerFactory loggerFactory)
         {
+            if (next == null)
+            {
+                throw new ArgumentNullException(nameof(next));
+            }
+
+            if (hostingEnv == null)
+            {
+                throw new ArgumentNullException(nameof(hostingEnv));
+            }
+
+            if (staticFileOptions == null)
+            {
+                throw new ArgumentNullException(nameof(staticFileOptions));
+            }
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
             _hostingEnv = hostingEnv;
-            var contentTypeProvider = options.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
-            options.Value.ContentTypeProvider = contentTypeProvider;
-            options.Value.FileProvider = options.Value.FileProvider ?? hostingEnv.WebRootFileProvider;
-            options.Value.OnPrepareResponse = ctx =>
+            var contentTypeProvider = staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
+            staticFileOptions.Value.ContentTypeProvider = contentTypeProvider;
+            staticFileOptions.Value.FileProvider = staticFileOptions.Value.FileProvider ?? hostingEnv.WebRootFileProvider;
+            staticFileOptions.Value.OnPrepareResponse = ctx =>
             {
                 foreach (var compressionType in compressionTypes.Keys)
                 {
@@ -41,7 +61,7 @@ namespace CompressedStaticFiles
                 }
             };
 
-            _base = new StaticFileMiddleware(next, hostingEnv, options, loggerFactory);
+            _base = new StaticFileMiddleware(next, hostingEnv, staticFileOptions, loggerFactory);
         }
 
         public Task Invoke(HttpContext context)
@@ -51,30 +71,35 @@ namespace CompressedStaticFiles
                 string acceptEncoding = context.Request.Headers["Accept-Encoding"];
                 FileInfo matchedFile = null;
                 string[] browserSupportedCompressionTypes = context.Request.Headers["Accept-Encoding"].ToString().Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var compressionType in compressionTypes.Keys)
-                {
-                    if (browserSupportedCompressionTypes.Contains(compressionType, StringComparer.OrdinalIgnoreCase))
-                    {
-                        var fileExtension = compressionTypes[compressionType];
-                        var filePath = System.IO.Path.Combine(
+                var orginalFilePath = System.IO.Path.Combine(
                                 _hostingEnv.WebRootPath, context.Request.Path.Value.StartsWith("/")
                                 ? context.Request.Path.Value.Remove(0, 1)
                                 : context.Request.Path.Value
-                            ) + fileExtension;
-                        var file = new FileInfo(filePath);
-                        if (file.Exists)
+                            );
+                var orginalFile = new FileInfo(orginalFilePath);
+                if (orginalFile.Exists)
+                {
+                    foreach (var compressionType in compressionTypes.Keys)
+                    {
+                        if (browserSupportedCompressionTypes.Contains(compressionType, StringComparer.OrdinalIgnoreCase))
                         {
-                            if (matchedFile == null)
-                                matchedFile = file;
-                            else if (matchedFile.Length > file.Length)
-                                matchedFile = file;
+                            var fileExtension = compressionTypes[compressionType];
+                            var filePath = orginalFilePath + fileExtension;
+                            var file = new FileInfo(filePath);
+                            if (file.Exists && file.Length < orginalFile.Length)
+                            {
+                                if (matchedFile == null)
+                                    matchedFile = file;
+                                else if (matchedFile.Length > file.Length)
+                                    matchedFile = file;
+                            }
                         }
                     }
-                }
-                if (matchedFile != null)
-                {
-                    context.Request.Path = new PathString(context.Request.Path.Value + matchedFile.Extension);
-                    return _base.Invoke(context);
+                    if (matchedFile != null)
+                    {
+                        context.Request.Path = new PathString(context.Request.Path.Value + matchedFile.Extension);
+                        return _base.Invoke(context);
+                    }
                 }
             }
             return _base.Invoke(context);
