@@ -18,8 +18,9 @@ namespace CompressedStaticFiles
         {{"gzip", ".gz" },
          {"br", ".br" }};
 
-        private IHostingEnvironment _hostingEnv;
-        private StaticFileMiddleware _base;
+        private readonly IHostingEnvironment _hostingEnv;
+        private readonly StaticFileMiddleware _base;
+        private readonly ILogger _logger;
         public CompressedStaticFileMiddleware(RequestDelegate next, IHostingEnvironment hostingEnv, IOptions<StaticFileOptions> staticFileOptions, ILoggerFactory loggerFactory)
         {
             if (next == null)
@@ -43,6 +44,7 @@ namespace CompressedStaticFiles
             }
 
             _hostingEnv = hostingEnv;
+            _logger = loggerFactory.CreateLogger<CompressedStaticFileMiddleware>();
             var contentTypeProvider = staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
             staticFileOptions.Value.ContentTypeProvider = contentTypeProvider;
             staticFileOptions.Value.FileProvider = staticFileOptions.Value.FileProvider ?? hostingEnv.WebRootFileProvider;
@@ -97,7 +99,9 @@ namespace CompressedStaticFiles
                     }
                     if (matchedFile != null)
                     {
-                        context.Request.Path = new PathString(context.Request.Path.Value + matchedFile.Extension);
+                        var matchedPath = context.Request.Path.Value + matchedFile.Extension;
+                        _logger.LogFileServed(context.Request.Path.Value, matchedPath, orginalFile.Length, matchedFile.Length);
+                        context.Request.Path = new PathString(matchedPath);
                         return _base.Invoke(context);
                     }
                 }
