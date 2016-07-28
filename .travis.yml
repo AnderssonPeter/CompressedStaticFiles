@@ -3,3 +3,7 @@ os:
   - linux
 script:
   - ./build.sh
+cache:
+  directories:
+    - src/packages
+    - tools
