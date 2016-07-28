@@ -1,6 +1,7 @@
 language: csharp
 os:
   - linux
+- chmod +x ./build.sh
 script:
   - ./build.sh
 cache:
