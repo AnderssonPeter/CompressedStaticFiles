@@ -1,8 +1,17 @@
 language: csharp
 os:
   - linux
+
+sudo: required
+
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install dotnet-dev-1.0.0-preview2-003121
+
 script:
   - ./build.sh
+
 cache:
   directories:
     - src/packages
