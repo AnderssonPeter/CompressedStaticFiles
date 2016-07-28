@@ -1,0 +1,5 @@
+language: csharp
+os:
+  - linux
+script:
+  - ./build.sh
