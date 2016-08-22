@@ -46,6 +46,12 @@ namespace CompressedStaticFiles
             _hostingEnv = hostingEnv;
             _logger = loggerFactory.CreateLogger<CompressedStaticFileMiddleware>();
             var contentTypeProvider = staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
+            var fileExtensionContentTypeProvider = contentTypeProvider as FileExtensionContentTypeProvider;
+            if (fileExtensionContentTypeProvider != null)
+            {
+                fileExtensionContentTypeProvider.Mappings[".br"] = "application/brotli";
+            }
+
             staticFileOptions.Value.ContentTypeProvider = contentTypeProvider;
             staticFileOptions.Value.FileProvider = staticFileOptions.Value.FileProvider ?? hostingEnv.WebRootFileProvider;
             staticFileOptions.Value.OnPrepareResponse = ctx =>
