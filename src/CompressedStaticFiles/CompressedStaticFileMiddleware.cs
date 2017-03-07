@@ -54,8 +54,12 @@ namespace CompressedStaticFiles
 
             staticFileOptions.Value.ContentTypeProvider = contentTypeProvider;
             staticFileOptions.Value.FileProvider = staticFileOptions.Value.FileProvider ?? hostingEnv.WebRootFileProvider;
+
+            var originalPrepareResponse = staticFileOptions.Value.OnPrepareResponse;
             staticFileOptions.Value.OnPrepareResponse = ctx =>
             {
+                originalPrepareResponse(ctx);
+                
                 foreach (var compressionType in compressionTypes.Keys)
                 {
                     var fileExtension = compressionTypes[compressionType];
