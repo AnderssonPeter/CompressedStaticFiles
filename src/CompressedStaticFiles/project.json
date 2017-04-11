@@ -1,7 +1,7 @@
 {
   "title": "CompressedStaticFiles",
   "description": "This will ensure that you application will serve gzipped files and brotli compressed files if the browser supports it.",
-  "version": "1.0.2-*",
+  "version": "1.0.3-*",
   "authors": [ "Peter Andersson", "Andrey Kudashkin" ],
   "packOptions": {
     "owners": [ "Peter Andersson" ],
@@ -9,7 +9,7 @@
     "projectUrl": "https://github.com/AnderssonPeter/CompressedStaticFiles",
     "tags": [ "aspnetcore", "staticfiles", "compression", "precompressed", "gzip", "brotli" ],
     "files": [ "../../Readme.txt" ],
-    "releaseNotes": "1.0.1\nAdded logging\nPicks original file if its the smallest\nAdded support for .NETFramework 4.5.1\n1.0.0\nInitial release"
+    "releaseNotes": "1.0.3\nFixed issue that disabled caching parameters.\n1.0.2\nAdded support for IIS.\n1.0.1\nAdded logging\nPicks original file if its the smallest\nAdded support for .NETFramework 4.5.1\n1.0.0\nInitial release"
   },
   "dependencies": {
     "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
