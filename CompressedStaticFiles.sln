@@ -1,25 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7BECD242-C864-4919-98C7-3988F7AA00D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompressedStaticFiles", "src\CompressedStaticFiles\CompressedStaticFiles.csproj", "{2D397380-505F-498B-851B-A8268282557A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{809D58EE-D669-4D99-867D-4CDBADD27D6C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0C8B9649-AF30-470F-BEFF-DC65BC0CD7CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52861BD1-852A-45A9-9B32-2F042501228A}"
 	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
 		build.cake = build.cake
 		build.ps1 = build.ps1
 		build.sh = build.sh
 		global.json = global.json
+		LICENSE = LICENSE
 		README.md = README.md
 		Readme.txt = Readme.txt
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CompressedStaticFiles", "src\CompressedStaticFiles\CompressedStaticFiles.xproj", "{E36D3607-0590-495D-80D8-C7D9AD598E9E}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Example", "src\Example\Example.xproj", "{7849C532-A166-4673-8B6C-FDBBB3CCD549}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "src\Example\Example.csproj", "{36CB5306-7C5D-4D34-918F-AC8A4A71E912}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,20 +30,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E36D3607-0590-495D-80D8-C7D9AD598E9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E36D3607-0590-495D-80D8-C7D9AD598E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E36D3607-0590-495D-80D8-C7D9AD598E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E36D3607-0590-495D-80D8-C7D9AD598E9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7849C532-A166-4673-8B6C-FDBBB3CCD549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7849C532-A166-4673-8B6C-FDBBB3CCD549}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7849C532-A166-4673-8B6C-FDBBB3CCD549}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7849C532-A166-4673-8B6C-FDBBB3CCD549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D397380-505F-498B-851B-A8268282557A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D397380-505F-498B-851B-A8268282557A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D397380-505F-498B-851B-A8268282557A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D397380-505F-498B-851B-A8268282557A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36CB5306-7C5D-4D34-918F-AC8A4A71E912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36CB5306-7C5D-4D34-918F-AC8A4A71E912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36CB5306-7C5D-4D34-918F-AC8A4A71E912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36CB5306-7C5D-4D34-918F-AC8A4A71E912}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E36D3607-0590-495D-80D8-C7D9AD598E9E} = {7BECD242-C864-4919-98C7-3988F7AA00D4}
-		{7849C532-A166-4673-8B6C-FDBBB3CCD549} = {7BECD242-C864-4919-98C7-3988F7AA00D4}
+		{2D397380-505F-498B-851B-A8268282557A} = {0C8B9649-AF30-470F-BEFF-DC65BC0CD7CD}
+		{36CB5306-7C5D-4D34-918F-AC8A4A71E912} = {0C8B9649-AF30-470F-BEFF-DC65BC0CD7CD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8781CF2-14D0-4C67-A2D7-C8AD7BBCF2CE}
 	EndGlobalSection
 EndGlobal

@@ -16,8 +16,12 @@ var paths = ['wwwroot/**/*.js',
              'wwwroot/**/*.ico'];
 var dest = 'wwwroot';
 
-gulp.task('watch', function () {
-    return gulp.watch(paths, ['gzip', 'brotli']);
+gulp.task('copy', function () {
+    gulp.src(['node_modules/bootstrap/dist/css/bootstrap.min.css',
+        'node_modules/bootstrap/dist/css/bootstrap-grid.min.css',
+        'node_modules/bootstrap/dist/css/bootstrap-reboot.min.css',
+        'node_modules/bootstrap/dist/js/bootstrap.min.js'])
+        .pipe(gulp.dest('wwwroot/'));
 });
 
 gulp.task('gzip', function () {
@@ -31,3 +35,5 @@ gulp.task('brotli', function () {
                .pipe(brotli.compress({ quality: 11 }))
                .pipe(gulp.dest(dest));
 });
+
+gulp.task('build', ['gzip', 'brotli']);

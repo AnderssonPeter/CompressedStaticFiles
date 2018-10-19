@@ -28,11 +28,6 @@ namespace CompressedStaticFiles
                 throw new ArgumentNullException(nameof(next));
             }
 
-            if (hostingEnv == null)
-            {
-                throw new ArgumentNullException(nameof(hostingEnv));
-            }
-
             if (staticFileOptions == null)
             {
                 throw new ArgumentNullException(nameof(staticFileOptions));
@@ -43,7 +38,7 @@ namespace CompressedStaticFiles
                 throw new ArgumentNullException(nameof(loggerFactory));
             }
 
-            _hostingEnv = hostingEnv;
+            _hostingEnv = hostingEnv ?? throw new ArgumentNullException(nameof(hostingEnv));
             _logger = loggerFactory.CreateLogger<CompressedStaticFileMiddleware>();
             var contentTypeProvider = staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
             var fileExtensionContentTypeProvider = contentTypeProvider as FileExtensionContentTypeProvider;
@@ -59,7 +54,6 @@ namespace CompressedStaticFiles
             staticFileOptions.Value.OnPrepareResponse = ctx =>
             {
                 originalPrepareResponse(ctx);
-                
                 foreach (var compressionType in compressionTypes.Keys)
                 {
                     var fileExtension = compressionTypes[compressionType];
@@ -83,7 +77,7 @@ namespace CompressedStaticFiles
                 string acceptEncoding = context.Request.Headers["Accept-Encoding"];
                 FileInfo matchedFile = null;
                 string[] browserSupportedCompressionTypes = context.Request.Headers["Accept-Encoding"].ToString().Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var orginalFilePath = System.IO.Path.Combine(
+                var orginalFilePath = Path.Combine(
                                 _hostingEnv.WebRootPath, context.Request.Path.Value.StartsWith("/")
                                 ? context.Request.Path.Value.Remove(0, 1)
                                 : context.Request.Path.Value

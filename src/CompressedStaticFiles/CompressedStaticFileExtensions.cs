@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using System;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace CompressedStaticFiles
 {

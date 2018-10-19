@@ -14,7 +14,7 @@ var projectDir = Directory("./src/CompressedStaticFiles");
 var buildDir = projectDir + Directory("bin") + Directory(configuration);
 
 // Define files.
-var projectFile = projectDir + File("project.json");
+var projectFile = projectDir + File("CompressedStaticFiles.csproj");
 
 //////////////////////////////////////////////////////////////////////
 // Output variables
