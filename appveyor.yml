@@ -4,7 +4,7 @@
 # Full reference at http://www.appveyor.com/docs/appveyor-yml
 
 version: 1.0.{build}
-os: Visual Studio 2017 CTP
+os: Visual Studio 2017
 
 build_script:
 - ps: .\build.ps1
