@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.4</Version>
-    <Authors>Peter Andersson;Andrey Kudashkin</Authors>
+    <Version>1.1.0</Version>
+    <Authors>Peter Andersson;Andrey Kudashkin;Mathias Raacke</Authors>
     <Company></Company>
     <Description>This will ensure that you application will serve gzipped files and brotli compressed files if the browser supports it.</Description>
     <PackageLicenseUrl>https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/AnderssonPeter/CompressedStaticFiles</PackageProjectUrl>
     <PackageTags>aspnetcore;staticfiles;compression;precompressed;gzip;brotli</PackageTags>
-    <PackageReleaseNotes>1.0.4
+    <PackageReleaseNotes>1.1.0
+New feature: Ability to specifiy a custom FileProvider (now using the FileProvider provided in the StaticFileOptions if it is set)
+      1.0.4
 Converted to .NET Standard 1.6
 1.0.3
 Fixed issue that disabled caching parameters.
@@ -24,10 +26,11 @@ Added support for .NETFramework 4.5.1
 
 1.0.0
 Initial release</PackageReleaseNotes>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Update="Microsoft.NETCore.App" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
