@@ -40,6 +40,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CompressedStaticFiles\CompressedStaticFiles.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
   </ItemGroup>
 
 </Project>
