@@ -58,6 +58,7 @@ namespace CompressedStaticFiles
             var contentTypeProvider = staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
             if (contentTypeProvider is FileExtensionContentTypeProvider fileExtensionContentTypeProvider)
             {
+                // the StaticFileProvider would not serve the file if it does not know the content-type
                 fileExtensionContentTypeProvider.Mappings[".br"] = "application/brotli";
             }
             staticFileOptions.Value.ContentTypeProvider = contentTypeProvider;
@@ -71,8 +72,11 @@ namespace CompressedStaticFiles
                     var fileExtension = compressionTypes[compressionType];
                     if (ctx.File.Name.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase))
                     {
+                        // we need to restore the original content type, otherwise it would be based on the compression type
+                        // (for example "application/brotli" instead of "text/html")
                         string contentType = null;
-                        if (contentTypeProvider.TryGetContentType(ctx.File.PhysicalPath.Remove(ctx.File.PhysicalPath.Length - fileExtension.Length, fileExtension.Length), out contentType))
+                        if (contentTypeProvider.TryGetContentType(ctx.File.PhysicalPath.Remove(
+                            ctx.File.PhysicalPath.Length - fileExtension.Length, fileExtension.Length), out contentType))
                             ctx.Context.Response.ContentType = contentType;
                         ctx.Context.Response.Headers.Add("Content-Encoding", new[] { compressionType });
                     }
@@ -91,9 +95,6 @@ namespace CompressedStaticFiles
 
         private void ProcessRequest(HttpContext context)
         {
-            string acceptEncoding = context.Request.Headers["Accept-Encoding"];
-            string[] browserSupportedCompressionTypes = context.Request.Headers["Accept-Encoding"].Select(s => s).ToArray();
-
             var fileSystem = _staticFileOptions.Value.FileProvider;
             var originalFile = fileSystem.GetFileInfo(context.Request.Path);
 
@@ -101,24 +102,39 @@ namespace CompressedStaticFiles
             {
                 return;
             }
+            
+            var supportedEncodings = GetSupportedEncodings(context);
 
+            // try to find a compressed version of the file and ensure that it is smaller than the uncompressed version
             IFileInfo matchedFile = originalFile;
-            foreach (var compressionType in compressionTypes.Keys.Intersect(browserSupportedCompressionTypes, StringComparer.OrdinalIgnoreCase))                
-            {                
+            foreach (var compressionType in supportedEncodings)
+            {
                 var fileExtension = compressionTypes[compressionType];
                 var file = fileSystem.GetFileInfo(context.Request.Path + fileExtension);
                 if (file.Exists && file.Length < matchedFile.Length)
-                {                        
+                {
                     matchedFile = file;
-                }                
+                }
             }
 
             if (matchedFile != originalFile)
             {
+                // a compressed version exists and is smaller, change the path to serve the compressed file
                 var matchedPath = context.Request.Path.Value + Path.GetExtension(matchedFile.Name);
                 _logger.LogFileServed(context.Request.Path.Value, matchedPath, originalFile.Length, matchedFile.Length);
                 context.Request.Path = new PathString(matchedPath);
-            }            
+            }
+        }
+
+        /// <summary>
+        /// Find the encodings that are supported by the browser and by this middleware
+        /// </summary>        
+        private static IEnumerable<string> GetSupportedEncodings(HttpContext context)
+        {
+            string acceptEncoding = context.Request.Headers["Accept-Encoding"];
+            var browserSupportedCompressionTypes = context.Request.Headers["Accept-Encoding"].Select(s => s);
+            var validCompressionTypes = compressionTypes.Keys.Intersect(browserSupportedCompressionTypes, StringComparer.OrdinalIgnoreCase);
+            return validCompressionTypes;
         }
     }
 }
