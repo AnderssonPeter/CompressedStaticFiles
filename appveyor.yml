@@ -1,13 +1,11 @@
-# Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
-# Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
-# Full reference at http://www.appveyor.com/docs/appveyor-yml
-
 version: 1.0.{build}
-os: Visual Studio 2017
-
+image: Visual Studio 2017
 build_script:
-- ps: .\build.ps1
+- cmd: >-
+    dotnet build -c Release
 
+    dotnet pack -c Release
+test_script:
+- cmd: dotnet test -c Release
 artifacts:
 - path: '**\CompressedStaticFiles*.nupkg'
