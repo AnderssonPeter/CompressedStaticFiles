@@ -4,36 +4,6 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="wwwroot - Copy\bootstrap-grid.min.css" />
-    <None Remove="wwwroot - Copy\bootstrap-reboot.min.css" />
-    <None Remove="wwwroot - Copy\bootstrap.min.css" />
-    <None Remove="wwwroot - Copy\bootstrap.min.js" />
-    <None Remove="wwwroot - Copy\favicon.ico" />
-    <None Remove="wwwroot - Copy\index.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot - Copy\bootstrap-grid.min.css">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot - Copy\bootstrap-reboot.min.css">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot - Copy\bootstrap.min.css">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot - Copy\bootstrap.min.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot - Copy\favicon.ico">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot - Copy\index.html">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
   <ItemGroup>    
   </ItemGroup>
 

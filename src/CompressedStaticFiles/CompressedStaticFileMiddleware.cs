@@ -15,12 +15,12 @@ namespace CompressedStaticFiles
 {
     public class CompressedStaticFileMiddleware
     {
-        private static Dictionary<string, string> compressionTypes = 
+        private static Dictionary<string, string> compressionTypes =
             new Dictionary<string, string>()
             {
                 { "gzip", ".gz" }, {"br", ".br" }
             };
-        
+
         private readonly IOptions<StaticFileOptions> _staticFileOptions;
         private readonly StaticFileMiddleware _base;
         private readonly ILogger _logger;
@@ -102,7 +102,7 @@ namespace CompressedStaticFiles
             {
                 return;
             }
-            
+
             var supportedEncodings = GetSupportedEncodings(context);
 
             // try to find a compressed version of the file and ensure that it is smaller than the uncompressed version
@@ -128,11 +128,10 @@ namespace CompressedStaticFiles
 
         /// <summary>
         /// Find the encodings that are supported by the browser and by this middleware
-        /// </summary>        
+        /// </summary>
         private static IEnumerable<string> GetSupportedEncodings(HttpContext context)
         {
-            string acceptEncoding = context.Request.Headers["Accept-Encoding"];
-            var browserSupportedCompressionTypes = context.Request.Headers["Accept-Encoding"].Select(s => s);
+            var browserSupportedCompressionTypes = context.Request.Headers["Accept-Encoding"].ToString().Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var validCompressionTypes = compressionTypes.Keys.Intersect(browserSupportedCompressionTypes, StringComparer.OrdinalIgnoreCase);
             return validCompressionTypes;
         }

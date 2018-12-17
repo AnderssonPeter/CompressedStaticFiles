@@ -35,9 +35,9 @@ namespace Example
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDefaultFiles();
             app.UseDeveloperExceptionPage();
             app.UseCompressedStaticFiles();
-            app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseSpa(spa =>
