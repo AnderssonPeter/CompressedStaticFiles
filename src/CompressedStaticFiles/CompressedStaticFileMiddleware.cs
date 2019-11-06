@@ -96,7 +96,13 @@ namespace CompressedStaticFiles
         private void ProcessRequest(HttpContext context)
         {
             var fileSystem = _staticFileOptions.Value.FileProvider;
-            var originalFile = fileSystem.GetFileInfo(context.Request.Path);
+
+            if (!context.Request.Path.StartsWithSegments(_staticFileOptions.Value.RequestPath, out var subPath))
+            {
+                return;
+            }
+
+            var originalFile = fileSystem.GetFileInfo(subPath);
 
             if (!originalFile.Exists)
             {
@@ -110,7 +116,7 @@ namespace CompressedStaticFiles
             foreach (var compressionType in supportedEncodings)
             {
                 var fileExtension = compressionTypes[compressionType];
-                var file = fileSystem.GetFileInfo(context.Request.Path + fileExtension);
+                var file = fileSystem.GetFileInfo(subPath + fileExtension);
                 if (file.Exists && file.Length < matchedFile.Length)
                 {
                     matchedFile = file;
