@@ -1,10 +1,10 @@
 version: 1.0.{build}
-image: Visual Studio 2017
+image: Visual Studio 2019
 build_script:
 - cmd: >-
     dotnet build -c Release
 
-    dotnet pack -c Release
+    dotnet pack -c Release CompressedStaticFiles\CompressedStaticFiles.csproj
 test_script:
 - cmd: dotnet test -c Release
 artifacts:
