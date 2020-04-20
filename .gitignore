@@ -246,3 +246,8 @@ ModelManifest.xml
 
 # Cake (C# Make)
 /tools
+
+# Example
+/Example/wwwroot/*.gz
+/Example/wwwroot/*.br
+/Example/wwwroot/*.min.*

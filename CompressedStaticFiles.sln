@@ -1,12 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompressedStaticFiles", "src\CompressedStaticFiles\CompressedStaticFiles.csproj", "{2D397380-505F-498B-851B-A8268282557A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0C8B9649-AF30-470F-BEFF-DC65BC0CD7CD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52861BD1-852A-45A9-9B32-2F042501228A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
@@ -19,9 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.txt = Readme.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "src\Example\Example.csproj", "{36CB5306-7C5D-4D34-918F-AC8A4A71E912}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompressedStaticFiles.Tests", "CompressedStaticFiles.Tests\CompressedStaticFiles.Tests.csproj", "{3D5A45B2-A15B-49B2-BB4F-47FDC1B5A5ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompressedStaticFiles", "CompressedStaticFiles\CompressedStaticFiles.csproj", "{0839E928-AD6E-493A-A7C0-311B8C8905E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{184DB6BA-2A71-4BD8-B8D4-364F95C4286E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,25 +27,21 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2D397380-505F-498B-851B-A8268282557A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D397380-505F-498B-851B-A8268282557A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D397380-505F-498B-851B-A8268282557A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D397380-505F-498B-851B-A8268282557A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36CB5306-7C5D-4D34-918F-AC8A4A71E912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36CB5306-7C5D-4D34-918F-AC8A4A71E912}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36CB5306-7C5D-4D34-918F-AC8A4A71E912}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36CB5306-7C5D-4D34-918F-AC8A4A71E912}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D5A45B2-A15B-49B2-BB4F-47FDC1B5A5ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D5A45B2-A15B-49B2-BB4F-47FDC1B5A5ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D5A45B2-A15B-49B2-BB4F-47FDC1B5A5ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D5A45B2-A15B-49B2-BB4F-47FDC1B5A5ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0839E928-AD6E-493A-A7C0-311B8C8905E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0839E928-AD6E-493A-A7C0-311B8C8905E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0839E928-AD6E-493A-A7C0-311B8C8905E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0839E928-AD6E-493A-A7C0-311B8C8905E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{184DB6BA-2A71-4BD8-B8D4-364F95C4286E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{184DB6BA-2A71-4BD8-B8D4-364F95C4286E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{184DB6BA-2A71-4BD8-B8D4-364F95C4286E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{184DB6BA-2A71-4BD8-B8D4-364F95C4286E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{2D397380-505F-498B-851B-A8268282557A} = {0C8B9649-AF30-470F-BEFF-DC65BC0CD7CD}
-		{36CB5306-7C5D-4D34-918F-AC8A4A71E912} = {0C8B9649-AF30-470F-BEFF-DC65BC0CD7CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D8781CF2-14D0-4C67-A2D7-C8AD7BBCF2CE}

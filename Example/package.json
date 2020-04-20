@@ -4,16 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp build"
   },
   "author": "Peter Andersson",
   "license": "Apache-2.0",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-brotli": "^1.2.1",
-    "gulp-zopfli": "^1.0.0"
+    "gulp": "^4.0.2",
+    "gulp-brotli": "^2.0.2",
+    "gulp-zopfli-green": "^4.0.2"
   },
   "dependencies": {
-    "bootstrap": "^4.1.3"
+    "bootstrap": "^4.4.1"
   }
 }

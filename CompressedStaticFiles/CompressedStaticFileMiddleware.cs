@@ -10,6 +10,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+#if NETSTANDARD2_0
+using IHost = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+#else
+using IHost = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
+#endif
+
 
 namespace CompressedStaticFiles
 {
@@ -26,7 +32,9 @@ namespace CompressedStaticFiles
         private readonly ILogger _logger;
 
         public CompressedStaticFileMiddleware(
-            RequestDelegate next, IHostingEnvironment hostingEnv, IOptions<StaticFileOptions> staticFileOptions, ILoggerFactory loggerFactory)
+            RequestDelegate next,
+            IHost hostingEnv,
+            IOptions<StaticFileOptions> staticFileOptions, ILoggerFactory loggerFactory)
         {
             if (next == null)
             {
@@ -52,7 +60,7 @@ namespace CompressedStaticFiles
             _base = new StaticFileMiddleware(next, hostingEnv, staticFileOptions, loggerFactory);
         }
 
-        private static void InitializeStaticFileOptions(IHostingEnvironment hostingEnv, IOptions<StaticFileOptions> staticFileOptions)
+        private static void InitializeStaticFileOptions(IHost hostingEnv, IOptions<StaticFileOptions> staticFileOptions)
         {
             staticFileOptions.Value.FileProvider = staticFileOptions.Value.FileProvider ?? hostingEnv.WebRootFileProvider;
             var contentTypeProvider = staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
