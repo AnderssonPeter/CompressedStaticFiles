@@ -1,6 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/na1crpmvw7huyy0l?svg=true)](https://ci.appveyor.com/project/AnderssonPeter/compressedstaticfiles)
 [![NuGet version](https://badge.fury.io/nu/CompressedStaticFiles.svg)](https://badge.fury.io/nu/CompressedStaticFiles)
-[![Build Status](https://travis-ci.org/AnderssonPeter/CompressedStaticFiles.svg?branch=master)](https://travis-ci.org/AnderssonPeter/CompressedStaticFiles)
+[![CompressedStaticFiles](https://circleci.com/gh/AnderssonPeter/CompressedStaticFiles.svg?style=svg)](https://circleci.com/gh/AnderssonPeter/CompressedStaticFiles)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE)
 
 
