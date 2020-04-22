@@ -1,7 +1,7 @@
 [![NuGet version](https://badge.fury.io/nu/CompressedStaticFiles.svg)](https://badge.fury.io/nu/CompressedStaticFiles)
 [![CompressedStaticFiles](https://circleci.com/gh/AnderssonPeter/CompressedStaticFiles.svg?style=svg)](https://circleci.com/gh/AnderssonPeter/CompressedStaticFiles)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE)
-
+[![Coverage Status](https://coveralls.io/repos/github/AnderssonPeter/CompressedStaticFiles/badge.svg?branch=master)](https://coveralls.io/github/AnderssonPeter/CompressedStaticFiles?branch=master)
 
 Ensure that you are using the `Kestrel` server without the IIS Integration.
 Place `app.UseCompressedStaticFiles();` instead of `app.UseStaticFiles();` in `Startup.Configure()`.

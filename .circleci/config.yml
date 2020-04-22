@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@2.2.0
+  coveralls: coveralls/coveralls@1.0.4
 
 jobs:
   build:
@@ -10,7 +11,7 @@ jobs:
     steps:
       - checkout
       - run: dotnet build
-      - run: dotnet test --no-build --logger "trx"
+      - run: dotnet test --no-build --logger "trx" --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       - run:
           name: test results
           when: always
@@ -23,3 +24,4 @@ jobs:
       - store_artifacts:
           path: CompressedStaticFiles.Tests/TestResults
           destination: TestResults
+      - coveralls/upload
