@@ -12,7 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
-		Readme.txt = Readme.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompressedStaticFiles.Tests", "CompressedStaticFiles.Tests\CompressedStaticFiles.Tests.csproj", "{3D5A45B2-A15B-49B2-BB4F-47FDC1B5A5ED}"
