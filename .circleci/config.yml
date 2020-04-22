@@ -1,0 +1,25 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.2.0
+
+jobs:
+  build:
+    executor: win/default     
+   
+    steps:
+      - checkout
+      - run: dotnet build
+      - run: dotnet test --no-build --logger "trx"
+      - run:
+          name: test results
+          when: always
+          command: |
+              dotnet tool install -g trx2junit
+              export PATH="$PATH;/root/.dotnet/tools"
+              trx2junit CompressedStaticFiles.Tests/TestResults/*.trx
+      - store_test_results:
+          path: CompressedStaticFiles.Tests/TestResults
+      - store_artifacts:
+          path: CompressedStaticFiles.Tests/TestResults
+          destination: TestResults
