@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp3.1;</TargetFrameworks>
     <Version>1.1.0</Version>
+    <LangVersion>Latest</LangVersion>
     <Authors>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda</Authors>
     <Company>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda</Company>
     <Description>This will ensure that you application will serve gzipped files and brotli compressed files if the browser supports it.</Description>
