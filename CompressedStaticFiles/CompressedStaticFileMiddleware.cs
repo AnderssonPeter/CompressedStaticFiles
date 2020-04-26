@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 #if NETSTANDARD2_0
 using IHost = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 #else
@@ -26,7 +27,7 @@ namespace CompressedStaticFiles
         public CompressedStaticFileMiddleware(
             RequestDelegate next,
             IHost hostingEnv,
-            IOptions<CompressedStaticFileOptions> staticFileOptions, ILoggerFactory loggerFactory)
+            IOptions<StaticFileOptions> staticFileOptions, ILoggerFactory loggerFactory)
         {
             if (next == null)
             {
@@ -45,11 +46,22 @@ namespace CompressedStaticFiles
 
             _logger = loggerFactory.CreateLogger<CompressedStaticFileMiddleware>();
 
+            var options = staticFileOptions ?? throw new ArgumentNullException(nameof(staticFileOptions));
+            _compressedStaticFileOptions = GetCompressedStaticFileOptions(options);
 
-            this._compressedStaticFileOptions = staticFileOptions ?? throw new ArgumentNullException(nameof(staticFileOptions));
-            InitializeStaticFileOptions(hostingEnv, staticFileOptions);
+            InitializeStaticFileOptions(hostingEnv, _compressedStaticFileOptions);
 
-            _base = new StaticFileMiddleware(next, hostingEnv, staticFileOptions, loggerFactory);
+            _base = new StaticFileMiddleware(next, hostingEnv, _compressedStaticFileOptions, loggerFactory);
+        }
+
+        private static IOptions<CompressedStaticFileOptions> GetCompressedStaticFileOptions(IOptions<StaticFileOptions> staticFileOptions)
+        {
+            if (staticFileOptions.Value is CompressedStaticFileOptions compressedStaticFileOptions)
+            {
+                return Options.Create(compressedStaticFileOptions);
+            }
+
+            return Options.Create(new CompressedStaticFileOptions(staticFileOptions.Value));
         }
 
         private static void InitializeStaticFileOptions(IHost hostingEnv, IOptions<CompressedStaticFileOptions> compressedStaticFileOptions)

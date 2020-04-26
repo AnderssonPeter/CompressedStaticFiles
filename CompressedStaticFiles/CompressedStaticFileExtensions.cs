@@ -17,7 +17,7 @@ namespace CompressedStaticFiles
         }
 
 
-        public static IApplicationBuilder UseCompressedStaticFiles(this IApplicationBuilder app, CompressedStaticFileOptions options)
+        public static IApplicationBuilder UseCompressedStaticFiles(this IApplicationBuilder app, StaticFileOptions options)
         {
             if (app == null)
             {

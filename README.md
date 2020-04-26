@@ -20,7 +20,7 @@ Ensure that you are using the `Kestrel` server without the IIS Integration or th
 
 ### Usage
 
-Place `app.UseCompressedStaticFiles();` instead of `app.UseStaticFiles();` in `Startup.Configure()`. Also if using `StaticFileOptions` remember to replace it with `CompressedStaticFileOptions`. `CompressedStaticFileOptions` inherits from `StaticFileOptions` and supports all the options that come with `StaticFileOptions`.
+Place `app.UseCompressedStaticFiles();` instead of `app.UseStaticFiles();` in `Startup.Configure()`.
 
 This will ensure that your application will serve pre-compressed `gzip` `(filename.ext.gz)` or `brotli` `(filename.ext.br)` compressed files if the browser supports it. Without providing any options the default behavior is that, if the browser supports both `gzip` and `brotli` and if pre-compressed files for both types exist it will provide the smallest compressed files.
 
@@ -28,7 +28,9 @@ Checkout the `Example` project for usage.
 
 ### How to add more compression types
 
-By default the middleware only supports `gzip` and `brotli`, to add more types you need to implement `ICompressionType` interface and then add it to the `CompressionTypes` list in `PreCompressedStaticFileOptions`.
+ Also if using `StaticFileOptions` remember to replace it with `CompressedStaticFileOptions`. `CompressedStaticFileOptions` inherits from `StaticFileOptions` and supports all the options that come with `StaticFileOptions`.
+
+By default the middleware only supports `gzip` and `brotli`, to add more types you need to implement `ICompressionType` interface and replace `StaticFileOptions` with `CompressedStaticFileOptions` and then add the new compression type to the `CompressionTypes` list in `CompressedStaticFileOptions`.
 
 > Note: the compression type needs to be supported in the commonly used browsers otherwise the users will not benefit from it.
 
@@ -46,7 +48,7 @@ public class ExampleCompressionType: ICompressionType
 And here is how to set it up:
 
 ```csharp
-var options = new PreCompressedStaticFileOptions();
+var options = new CompressedStaticFileOptions();
 options.CompressionTypes.Add<ExampleCompressionType>();
 app.UsePreCompressedStaticFiles(options);
 ```
