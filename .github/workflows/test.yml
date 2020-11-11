@@ -38,4 +38,4 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ${{ steps.find-lcov-file-path.path }}
+        path-to-lcov: ${{ steps.find-lcov-file-path.outputs.path }}
