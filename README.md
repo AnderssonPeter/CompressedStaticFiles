@@ -1,8 +1,3 @@
-[![NuGet version](https://badge.fury.io/nu/CompressedStaticFiles.svg)](https://badge.fury.io/nu/CompressedStaticFiles)
-[![run unit tests](https://github.com/AnderssonPeter/CompressedStaticFiles/workflows/run%20unit%20tests/badge.svg)](https://github.com/AnderssonPeter/CompressedStaticFiles/actions?query=workflow%3A%22run+unit+tests%22)
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE)
-
-<br />
 <p align="center">
   <a href="https://github.com/AnderssonPeter/CompressedStaticFiles">
     <img src="icon.svg" alt="Logo" width="80" height="80">
@@ -22,6 +17,11 @@
     <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/issues">Request Feature</a>
   </p>
 </p>
+<br />
+
+[![NuGet version](https://badge.fury.io/nu/CompressedStaticFiles.svg)](https://badge.fury.io/nu/CompressedStaticFiles)
+[![run unit tests](https://github.com/AnderssonPeter/CompressedStaticFiles/workflows/run%20unit%20tests/badge.svg)](https://github.com/AnderssonPeter/CompressedStaticFiles/actions?query=workflow%3A%22run+unit+tests%22)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE)
 
 ## Table of Contents
 * [About the Project](#about-the-project)
