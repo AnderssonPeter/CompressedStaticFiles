@@ -18,9 +18,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompressedStaticFiles", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{560BE25F-638D-4B3C-BE63-D427D6C516C5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".circleci", ".circleci", "{F7B3BF58-00CF-40D9-8853-8F948E5CD39A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{ADB0F1E4-D83F-4E58-80DD-57AD26C22DD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{207C684E-30A0-4D6E-821E-310BE08EBF28}"
 	ProjectSection(SolutionItems) = preProject
-		.circleci\config.yml = .circleci\config.yml
+		.github\workflows\test.yml = .github\workflows\test.yml
 	EndProjectSection
 EndProject
 Global
@@ -46,7 +48,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F7B3BF58-00CF-40D9-8853-8F948E5CD39A} = {52861BD1-852A-45A9-9B32-2F042501228A}
+		{ADB0F1E4-D83F-4E58-80DD-57AD26C22DD5} = {52861BD1-852A-45A9-9B32-2F042501228A}
+		{207C684E-30A0-4D6E-821E-310BE08EBF28} = {ADB0F1E4-D83F-4E58-80DD-57AD26C22DD5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D8781CF2-14D0-4C67-A2D7-C8AD7BBCF2CE}
