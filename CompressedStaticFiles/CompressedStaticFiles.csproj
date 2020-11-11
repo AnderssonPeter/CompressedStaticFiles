@@ -1,25 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.1;</TargetFrameworks>
-    <Version>1.1.0</Version>
+    <TargetFrameworks>netcoreapp3.1;net5.0;</TargetFrameworks>
+    <Version>2.0.0</Version>
     <Authors>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda</Authors>
     <Company>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda</Company>
-    <Description>This will ensure that you application will serve gzipped files and brotli compressed files if the browser supports it.</Description>
+    <Description>This will ensure that you application will serve the smallest files without any server overhead, files need to be compressed and converted to other image formats before deploying.</Description>
     <PackageProjectUrl>https://github.com/AnderssonPeter/CompressedStaticFiles</PackageProjectUrl>
-    <PackageTags>aspnetcore;staticfiles;compression;precompressed;gzip;brotli</PackageTags>
-    <PackageReleaseNotes>1.2.0
+    <PackageTags>aspnetcore;staticfiles;compression;precompressed;gzip;brotli;zopfli;webp;avif;</PackageTags>
+    <PackageReleaseNotes>2.0.0
+Added support for alternative image formats
+Added support for .net 5
+Removed support for .net core 2.1
+1.2.0
 Added support for .net core 3.1
 1.1.0
-New feature: Ability to specifiy a custom FileProvider (now using the FileProvider provided in the StaticFileOptions if it is set)
+New feature: Ability to specify a custom FileProvider (now using the FileProvider provided in the StaticFileOptions if it is set)
 1.0.4
 Converted to .NET Standard 1.6
 1.0.3
 Fixed issue that disabled caching parameters.
-
 1.0.2
 Added support for IIS.
-
 1.0.1
 Added logging
 Picks original file if its the smallest
@@ -27,18 +29,15 @@ Added support for .NETFramework 4.5.1
 
 1.0.0
 Initial release</PackageReleaseNotes>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>1.2.0.0</FileVersion>
+    <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+  
   <ItemGroup>
     <None Include="..\LICENSE">
       <Pack>True</Pack>

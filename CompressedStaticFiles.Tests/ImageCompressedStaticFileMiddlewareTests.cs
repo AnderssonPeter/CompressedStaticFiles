@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
@@ -17,48 +18,10 @@ using System.Threading.Tasks;
 namespace CompressedStaticFiles.Tests
 {
     [TestClass]
-    public class CompressedStaticFileMiddlewareTests
+    public class ImageCompressedStaticFileMiddlewareTests
     {
-
-        /// <summary>
-        /// Call the next middleware if no matching file is found.
-        /// </summary>
-        /// <returns></returns>
         [TestMethod]
-        public async Task CallNextMiddleware()
-        {
-            // Arrange
-            var builder = new WebHostBuilder()
-                .ConfigureServices(sp =>
-                {
-                    sp.AddCompressedStaticFiles();
-                })
-                .Configure(app =>
-                {
-                    app.UseCompressedStaticFiles();
-                    app.Use(next =>
-                    {
-                        return async context =>
-                        {
-                            context.Response.StatusCode = 999;
-                        };
-                    });
-                });
-            var server = new TestServer(builder);
-
-            // Act
-            var response = await server.CreateClient().GetAsync("/this_file_does_not_exist.html");
-
-            // Assert
-            response.StatusCode.Should().Be(999);
-        }
-
-        /// <summary>
-        /// Serve the uncompressed file if no compressed version exist
-        /// </summary>
-        /// <returns></returns>
-        [TestMethod]
-        public async Task Uncompressed()
+        public async Task GetSmallest()
         {
             // Arrange
             var builder = new WebHostBuilder()
@@ -82,22 +45,19 @@ namespace CompressedStaticFiles.Tests
             var server = new TestServer(builder);
 
             // Act
-            var response = await server.CreateClient().GetAsync("/i_exist_only_uncompressed.html");
+            var client = server.CreateClient();
+            client.DefaultRequestHeaders.Add("Accept", "image/avif,image/webp");
+            var response = await client.GetAsync("/IMG_6067.jpg");
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.StatusCode.Should().Be(200);
-            content.Should().Be("uncompressed");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
-            contentTypeValues.Single().Should().Be("text/html");
+            contentTypeValues.Single().Should().Be("image/avif");
         }
 
-        /// <summary>
-        /// Serve the compressed file if it exists and the browser supports it testing with a browser that supports both br and gzip
-        /// </summary>
-        /// <returns></returns>
         [TestMethod]
-        public async Task SupportsBrAndGZip()
+        public async Task FavIcon()
         {
             // Arrange
             var builder = new WebHostBuilder()
@@ -123,22 +83,18 @@ namespace CompressedStaticFiles.Tests
             // Act
             var client = server.CreateClient();
             client.DefaultRequestHeaders.Add("Accept-Encoding", "br, gzip");
-            var response = await client.GetAsync("/i_also_exist_compressed.html");
+            client.DefaultRequestHeaders.Add("Accept", "image/png,image/avif,image/webp");
+            var response = await client.GetAsync("/favicon.ico");
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.StatusCode.Should().Be(200);
-            content.Should().Be("br");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
-            contentTypeValues.Single().Should().Be("text/html");
+            contentTypeValues.Single().Should().Be("image/webp");
         }
 
-        /// <summary>
-        /// Serve the compressed file if it exists and the browser supports it testing with a browser that only supports gzip
-        /// </summary>
-        /// <returns></returns>
         [TestMethod]
-        public async Task SupportsGzip()
+        public async Task GetSecondSmallest()
         {
             // Arrange
             var builder = new WebHostBuilder()
@@ -163,23 +119,18 @@ namespace CompressedStaticFiles.Tests
 
             // Act
             var client = server.CreateClient();
-            client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
-            var response = await client.GetAsync("/i_also_exist_compressed.html");
+            client.DefaultRequestHeaders.Add("Accept", "image/webp");
+            var response = await client.GetAsync("/IMG_6067.jpg");
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.StatusCode.Should().Be(200);
-            content.Should().Be("gzip");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
-            contentTypeValues.Single().Should().Be("text/html");
+            contentTypeValues.Single().Should().Be("image/webp");
         }
 
-        /// <summary>
-        /// Should send the uncompressed file if its smaller than the original
-        /// </summary>
-        /// <returns></returns>
         [TestMethod]
-        public async Task UncompressedSmaller()
+        public async Task ShouldNotHaveAcceptEncoding()
         {
             // Arrange
             var builder = new WebHostBuilder()
@@ -194,9 +145,9 @@ namespace CompressedStaticFiles.Tests
                     {
                         return async context =>
                         {
-                        // this test should never call the next middleware
-                        // set status code to 999 to detect a test failure
-                        context.Response.StatusCode = 999;
+                            // this test should never call the next middleware
+                            // set status code to 999 to detect a test failure
+                            context.Response.StatusCode = 999;
                         };
                     });
                 }).UseWebRoot(Path.Combine(Environment.CurrentDirectory, "wwwroot"));
@@ -204,36 +155,19 @@ namespace CompressedStaticFiles.Tests
 
             // Act
             var client = server.CreateClient();
-            client.DefaultRequestHeaders.Add("Accept-Encoding", "br");
-            var response = await client.GetAsync("/i_am_smaller_in_uncompressed.html");
+            client.DefaultRequestHeaders.Add("Accept", "image/webp");
+            var response = await client.GetAsync("/IMG_6067.jpg");
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.StatusCode.Should().Be(200);
-            content.Should().Be("uncompressed");
-            response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
-            contentTypeValues.Single().Should().Be("text/html");
+            response.Content.Headers.Contains("Content-Encoding").Should().BeFalse();
         }
 
-        /// <summary>
-        /// Use the FileProvider from options.
-        /// </summary>
         [TestMethod]
-        public async Task UseCustomFileProvider()
+        public async Task GetWithoutSupport()
         {
             // Arrange
-            var fileInfo = Substitute.For<IFileInfo>();
-            fileInfo.Exists.Returns(true);
-            fileInfo.IsDirectory.Returns(false);
-            fileInfo.Length.Returns(12);
-            fileInfo.LastModified.Returns(new DateTimeOffset(2018, 12, 16, 13, 36, 0, new TimeSpan()));
-            fileInfo.CreateReadStream().Returns(new MemoryStream(Encoding.UTF8.GetBytes("fileprovider")));
-
-            var mockFileProvider = Substitute.For<IFileProvider>();
-            mockFileProvider.GetFileInfo("/i_only_exist_in_mociFileProvider.html").Returns(fileInfo);
-
-            var staticFileOptions = new StaticFileOptions() { FileProvider = mockFileProvider };
-
             var builder = new WebHostBuilder()
                 .ConfigureServices(sp =>
                 {
@@ -241,7 +175,7 @@ namespace CompressedStaticFiles.Tests
                 })
                 .Configure(app =>
                 {
-                    app.UseCompressedStaticFiles(staticFileOptions);
+                    app.UseCompressedStaticFiles();
                     app.Use(next =>
                     {
                         return async context =>
@@ -256,21 +190,15 @@ namespace CompressedStaticFiles.Tests
 
             // Act
             var client = server.CreateClient();
-            client.DefaultRequestHeaders.Add("Accept-Encoding", "br");
-            var response = await client.GetAsync("/i_only_exist_in_mociFileProvider.html");
+            var response = await client.GetAsync("/IMG_6067.jpg");
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.StatusCode.Should().Be(200);
-            content.Should().Be("fileprovider");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
-            contentTypeValues.Single().Should().Be("text/html");
+            contentTypeValues.Single().Should().Be("image/jpeg");
         }
 
-        /// <summary>
-        /// Should not send precompressed content if it has been disabled.
-        /// </summary>
-        /// <returns></returns>
         [TestMethod]
         public async Task Disabled()
         {
@@ -278,7 +206,7 @@ namespace CompressedStaticFiles.Tests
             var builder = new WebHostBuilder()
                 .ConfigureServices(sp =>
                 {
-                    sp.AddCompressedStaticFiles(options => options.EnablePrecompressedFiles = false);
+                    sp.AddCompressedStaticFiles(options => options.EnableImageSubstitution = false); ;
                 })
                 .Configure(app =>
                 {
@@ -297,13 +225,122 @@ namespace CompressedStaticFiles.Tests
 
             // Act
             var client = server.CreateClient();
-            client.DefaultRequestHeaders.Add("Accept-Encoding", "br");
-            var response = await client.GetAsync("/i_also_exist_compressed.html");
+            client.DefaultRequestHeaders.Add("Accept", "image/png,image/avif,image/webp");
+            var response = await client.GetAsync("/IMG_6067.jpg");
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.StatusCode.Should().Be(200);
-            content.Should().Be("uncompressed");
+            response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
+            contentTypeValues.Single().Should().Be("image/jpeg");
+        }
+
+        [TestMethod]
+        public async Task PrioritizeSmallest()
+        {
+            // Arrange
+            var builder = new WebHostBuilder()
+                .ConfigureServices(sp =>
+                {
+                    sp.AddCompressedStaticFiles(options => options.RemoveImageSubstitutionCostRatio());
+                })
+                .Configure(app =>
+                {
+                    app.UseCompressedStaticFiles();
+                    app.Use(next =>
+                    {
+                        return async context =>
+                        {
+                            // this test should never call the next middleware
+                            // set status code to 999 to detect a test failure
+                            context.Response.StatusCode = 999;
+                        };
+                    });
+                }).UseWebRoot(Path.Combine(Environment.CurrentDirectory, "wwwroot"));
+            var server = new TestServer(builder);
+
+            // Act
+            var client = server.CreateClient();
+            client.DefaultRequestHeaders.Add("Accept", "image/png,image/avif,image/webp");
+            var response = await client.GetAsync("/highquality.jpg");
+            var content = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.StatusCode.Should().Be(200);
+            response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
+            contentTypeValues.Single().Should().Be("image/jpeg");
+        }
+
+        [TestMethod]
+        public async Task PrioritizeQualityAVIF()
+        {
+            // Arrange
+            var builder = new WebHostBuilder()
+                .ConfigureServices(sp =>
+                {
+                    sp.AddCompressedStaticFiles();
+                })
+                .Configure(app =>
+                {
+                    app.UseCompressedStaticFiles();
+                    app.Use(next =>
+                    {
+                        return async context =>
+                        {
+                            // this test should never call the next middleware
+                            // set status code to 999 to detect a test failure
+                            context.Response.StatusCode = 999;
+                        };
+                    });
+                }).UseWebRoot(Path.Combine(Environment.CurrentDirectory, "wwwroot"));
+            var server = new TestServer(builder);
+
+            // Act
+            var client = server.CreateClient();
+            client.DefaultRequestHeaders.Add("Accept", "image/png,image/avif,image/webp");
+            var response = await client.GetAsync("/highquality.jpg");
+            var content = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.StatusCode.Should().Be(200);
+            response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
+            contentTypeValues.Single().Should().Be("image/avif");
+        }
+
+        [TestMethod]
+        public async Task PrioritizeQualityWEBP()
+        {
+            // Arrange
+            var builder = new WebHostBuilder()
+                .ConfigureServices(sp =>
+                {
+                    sp.AddCompressedStaticFiles();
+                })
+                .Configure(app =>
+                {
+                    app.UseCompressedStaticFiles();
+                    app.Use(next =>
+                    {
+                        return async context =>
+                        {
+                            // this test should never call the next middleware
+                            // set status code to 999 to detect a test failure
+                            context.Response.StatusCode = 999;
+                        };
+                    });
+                }).UseWebRoot(Path.Combine(Environment.CurrentDirectory, "wwwroot"));
+            var server = new TestServer(builder);
+
+            // Act
+            var client = server.CreateClient();
+            client.DefaultRequestHeaders.Add("Accept", "image/png,image/webp");
+            var response = await client.GetAsync("/highquality.jpg");
+            var content = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.StatusCode.Should().Be(200);
+            response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
+            contentTypeValues.Single().Should().Be("image/webp");
         }
     }
 }

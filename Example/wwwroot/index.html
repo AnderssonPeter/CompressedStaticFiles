@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>CompressedStaticFiles Example</title>
     <link href="bootstrap.min.css" rel="stylesheet" />
     <link href="bootstrap-grid.min.css" rel="stylesheet" />
     <link href="bootstrap-reboot.min.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
     <link href="cover.css" rel="stylesheet" />
 </head>
 <body class="text-center">
@@ -22,11 +23,14 @@
         </header>
 
         <main role="main" class="inner cover">
+            <img src="icon.png" id="logo" />
             <h1 class="cover-heading">Test page.</h1>
-            <p class="lead">Sample page to test the nuget package CompressedStaticFiles for asp.net core 3.1</p>
+            <p class="lead">Sample page to test the nuget package CompressedStaticFiles for ASP.NET Core 3.1 and ASP.NET 5</p>
             <p class="lead">
                 <a href="https://www.nuget.org/packages/CompressedStaticFiles/" class="btn btn-lg btn-secondary">nuget package</a>
             </p>
+            <p class="lead">Lighthouse mobile performance went from 76 to 98 by just applying the package on this page, it solves both <strong>Enable text compression</strong> and <strong>Serve images in next-gen formats</strong></p>
+            <p class="lead">The number of bytes transferred went from <strong>526 kb</strong> to <strong>141 kb</strong>.</p>
         </main>
 
         <footer class="mastfoot mt-auto">

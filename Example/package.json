@@ -4,16 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "buildWithOutImages": "gulp buildWithOutImages"
   },
   "author": "Peter Andersson",
   "license": "Apache-2.0",
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-brotli": "^2.0.2",
-    "gulp-zopfli-green": "^4.0.2"
+    "gulp-brotli": "^3.0.0",
+    "gulp-zopfli-green": "^5.0.1",
+    "imagemin-zopfli": "^7.0.0"
   },
   "dependencies": {
-    "bootstrap": "^4.4.1"
+    "bootstrap": "^4.5.3",
+    "gulp-exec": "^5.0.0",
+    "gulp-imagemin": "^7.1.0"
   }
 }

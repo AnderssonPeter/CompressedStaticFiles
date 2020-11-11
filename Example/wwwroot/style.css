@@ -1,0 +1,8 @@
+﻿#logo {
+    width: 80px;
+}
+
+body {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('IMG_6067.jpg');
+    background-size: cover;
+}
