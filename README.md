@@ -8,8 +8,6 @@
   <p align="center">
     Serve smaller files with zero-ish server overhead
     <br />
-    <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/wiki"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     ·
     <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/issues">Report Bug</a>
