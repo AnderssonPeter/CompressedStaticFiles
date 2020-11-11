@@ -44,7 +44,7 @@ The files must have the same filename as the source but with a new file extensio
 ### ASP.NET
 Add `AddCompressedStaticFiles()` in your `Startup.ConfigureServices()` method.
 Replace `UseStaticFiles();` with `UseCompressedStaticFiles();` in `Startup.Configure()`.
-By default CompressedStaticFiles is configured to allow slightly larger files for some image formats as they can store more pixels per byte, this can be disabled by calling the entries from `CompressedStaticFileOptions.RemoveImageSubstitutionCostRatio()`.
+By default CompressedStaticFiles is configured to allow slightly larger files for some image formats as they can store more pixels per byte, this can be disabled by calling `CompressedStaticFileOptions.RemoveImageSubstitutionCostRatio()`.
 
 ## Example
 A example can be found in the [Example](https://github.com/AnderssonPeter/CompressedStaticFiles/tree/master/Example) directory.
