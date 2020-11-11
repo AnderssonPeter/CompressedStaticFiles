@@ -6,9 +6,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet: [ '3.1.301', '5.0.100' ]
 
     steps:
     - uses: actions/checkout@v2
