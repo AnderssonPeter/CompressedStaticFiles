@@ -32,6 +32,11 @@ Initial release</PackageReleaseNotes>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <FileVersion>2.0.0.0</FileVersion>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RepositoryUrl>https://github.com/AnderssonPeter/CompressedStaticFiles</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,6 +44,7 @@ Initial release</PackageReleaseNotes>
   </ItemGroup>
   
   <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath=""/>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
