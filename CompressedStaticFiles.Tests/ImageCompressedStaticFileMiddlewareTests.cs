@@ -1,26 +1,20 @@
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 using FluentAssertions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace CompressedStaticFiles.Tests
 {
-    [TestClass]
     public class ImageCompressedStaticFileMiddlewareTests
     {
-        [TestMethod]
+        [Fact]
         public async Task GetSmallest()
         {
             // Arrange
@@ -56,7 +50,7 @@ namespace CompressedStaticFiles.Tests
             contentTypeValues.Single().Should().Be("image/avif");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task FavIcon()
         {
             // Arrange
@@ -93,7 +87,7 @@ namespace CompressedStaticFiles.Tests
             contentTypeValues.Single().Should().Be("image/webp");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetSecondSmallest()
         {
             // Arrange
@@ -129,7 +123,7 @@ namespace CompressedStaticFiles.Tests
             contentTypeValues.Single().Should().Be("image/webp");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ShouldNotHaveAcceptEncoding()
         {
             // Arrange
@@ -164,7 +158,7 @@ namespace CompressedStaticFiles.Tests
             response.Content.Headers.Contains("Content-Encoding").Should().BeFalse();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetWithoutSupport()
         {
             // Arrange
@@ -199,7 +193,7 @@ namespace CompressedStaticFiles.Tests
             contentTypeValues.Single().Should().Be("image/jpeg");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Disabled()
         {
             // Arrange
@@ -235,7 +229,7 @@ namespace CompressedStaticFiles.Tests
             contentTypeValues.Single().Should().Be("image/jpeg");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task PrioritizeSmallest()
         {
             // Arrange
@@ -271,7 +265,7 @@ namespace CompressedStaticFiles.Tests
             contentTypeValues.Single().Should().Be("image/jpeg");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task PrioritizeQualityAVIF()
         {
             // Arrange
@@ -307,7 +301,7 @@ namespace CompressedStaticFiles.Tests
             contentTypeValues.Single().Should().Be("image/avif");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task PrioritizeQualityWEBP()
         {
             // Arrange

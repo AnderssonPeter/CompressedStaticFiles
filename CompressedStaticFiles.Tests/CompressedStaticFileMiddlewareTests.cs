@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
@@ -13,10 +12,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace CompressedStaticFiles.Tests
 {
-    [TestClass]
     public class CompressedStaticFileMiddlewareTests
     {
 
@@ -24,7 +23,7 @@ namespace CompressedStaticFiles.Tests
         /// Call the next middleware if no matching file is found.
         /// </summary>
         /// <returns></returns>
-        [TestMethod]
+        [Fact]
         public async Task CallNextMiddleware()
         {
             // Arrange
@@ -57,7 +56,7 @@ namespace CompressedStaticFiles.Tests
         /// Serve the uncompressed file if no compressed version exist
         /// </summary>
         /// <returns></returns>
-        [TestMethod]
+        [Fact]
         public async Task Uncompressed()
         {
             // Arrange
@@ -96,7 +95,7 @@ namespace CompressedStaticFiles.Tests
         /// Serve the compressed file if it exists and the browser supports it testing with a browser that supports both br and gzip
         /// </summary>
         /// <returns></returns>
-        [TestMethod]
+        [Fact]
         public async Task SupportsBrAndGZip()
         {
             // Arrange
@@ -137,7 +136,7 @@ namespace CompressedStaticFiles.Tests
         /// Serve the compressed file if it exists and the browser supports it testing with a browser that only supports gzip
         /// </summary>
         /// <returns></returns>
-        [TestMethod]
+        [Fact]
         public async Task SupportsGzip()
         {
             // Arrange
@@ -178,7 +177,7 @@ namespace CompressedStaticFiles.Tests
         /// Should send the uncompressed file if its smaller than the original
         /// </summary>
         /// <returns></returns>
-        [TestMethod]
+        [Fact]
         public async Task UncompressedSmaller()
         {
             // Arrange
@@ -218,7 +217,7 @@ namespace CompressedStaticFiles.Tests
         /// <summary>
         /// Use the FileProvider from options.
         /// </summary>
-        [TestMethod]
+        [Fact]
         public async Task UseCustomFileProvider()
         {
             // Arrange
@@ -271,7 +270,7 @@ namespace CompressedStaticFiles.Tests
         /// Should not send precompressed content if it has been disabled.
         /// </summary>
         /// <returns></returns>
-        [TestMethod]
+        [Fact]
         public async Task Disabled()
         {
             // Arrange
