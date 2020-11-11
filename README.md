@@ -1,5 +1,5 @@
 [![NuGet version](https://badge.fury.io/nu/CompressedStaticFiles.svg)](https://badge.fury.io/nu/CompressedStaticFiles)
-[![CompressedStaticFiles](https://circleci.com/gh/AnderssonPeter/CompressedStaticFiles.svg?style=svg)](https://circleci.com/gh/AnderssonPeter/CompressedStaticFiles)
+[![run unit tests](https://github.com/AnderssonPeter/CompressedStaticFiles/workflows/run%20unit%20tests/badge.svg)](https://github.com/AnderssonPeter/CompressedStaticFiles/actions?query=workflow%3A%22run+unit+tests%22)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE)
 
 <br />
@@ -13,12 +13,12 @@
   <p align="center">
     Serve smaller files with zero-ish server overhead
     <br />
-    <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/wiki"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/wiki"><strong>Explore the docs Â»</strong></a>
     <br />
     <br />
-    ·
+    Â·
     <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/issues">Report Bug</a>
-    ·
+    Â·
     <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/issues">Request Feature</a>
   </p>
 </p>
