@@ -30,7 +30,7 @@ jobs:
       shell: pwsh
       run: |
         $FilePath = (Get-ChildItem CompressedStaticFiles.Tests\TestResults\* | Select-Object -First 1 | Get-ChildItem).FullName
-        Write-Host '::set-output name=path::$FilePath'
+        Write-Host ::set-output name=path::$FilePath
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
