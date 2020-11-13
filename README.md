@@ -17,7 +17,8 @@
 </p>
 <br />
 
-[![NuGet version](https://badge.fury.io/nu/CompressedStaticFiles.svg)](https://badge.fury.io/nu/CompressedStaticFiles)
+[![NuGet version](https://badge.fury.io/nu/CompressedStaticFiles.svg)](https://www.nuget.org/packages/CompressedStaticFiles)
+[![Nuget](https://img.shields.io/nuget/dt/CompressedStaticFiles)](https://www.nuget.org/packages/CompressedStaticFiles)
 [![run unit tests](https://github.com/AnderssonPeter/CompressedStaticFiles/workflows/run%20unit%20tests/badge.svg)](https://github.com/AnderssonPeter/CompressedStaticFiles/actions?query=workflow%3A%22run+unit+tests%22)
 [![Coverage Status](https://coveralls.io/repos/github/AnderssonPeter/CompressedStaticFiles/badge.svg)](https://coveralls.io/github/AnderssonPeter/CompressedStaticFiles)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/AnderssonPeter/CompressedStaticFiles/master/LICENSE)
