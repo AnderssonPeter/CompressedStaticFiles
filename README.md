@@ -6,7 +6,7 @@
   <h3 align="center">CompressedStaticFiles</h3>
 
   <p align="center">
-    Send compressed static files to the browser without having to compress on demand, also has support for sending more advanced image formats when the browser indicates that i has support for it.
+    Send compressed static files to the browser without having to compress on demand, also has support for sending more advanced image formats when the browser has support for it.
     <br />
     <br />
     ·
