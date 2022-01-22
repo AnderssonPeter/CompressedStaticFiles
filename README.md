@@ -13,6 +13,7 @@
     <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/issues">Report Bug</a>
     ·
     <a href="https://github.com/AnderssonPeter/CompressedStaticFiles/issues">Request Feature</a>
+    ·
   </p>
 </p>
 <br />
@@ -30,7 +31,7 @@
 * [Acknowledgements](#acknowledgements)
 
 ## About The Project
-This project allows you to server precompressed files to the browser without having to compress on demand, this is achieved by compressing/encoding your content at build time.
+This project allows you to serve precompressed files to the browser without having to compress on demand, this is achieved by compressing/encoding your content at build time.
 
 ## Getting Started
 
