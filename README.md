@@ -40,7 +40,7 @@ Static nonimage files have to be precompressed using [Zopfli](https://en.wikiped
 The files must have the exact same filename as the source + `.br` or `.gzip` (`index.html` would be `index.html.br` for the Brotli version).
 
 ### Encode images
-Modern browsers support new image formates like webp and avif they can store more pixels per byte.
+Modern browsers support new image formats like webp and avif they can store more pixels per byte.
 You can convert your images using the following tools [webp](https://developers.google.com/speed/webp/download) and [libavif](https://github.com/AOMediaCodec/libavif).
 The files must have the same filename as the source but with a new file extension (`image.jpg` would be `image.webp` for the webp version).
 
