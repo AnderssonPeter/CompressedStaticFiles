@@ -6,7 +6,11 @@ namespace CompressedStaticFiles
     {
         public bool EnablePrecompressedFiles { get; set; } = true;
         public bool EnableImageSubstitution { get; set; } = true;
-
+        /// <summary>
+        /// Use FullName of virtual file providers, e.g.
+        /// Microsoft.Extensions.FileProviders.Embedded.Manifest.ManifestFileInfo
+        /// </summary>
+        public string[] VirtualProviders { get; set; }
         /// <summary>
         /// Used to prioritize image formats that contain higher quality per byte, if only size should be considered remove all entries.
         /// </summary>

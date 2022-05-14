@@ -66,7 +66,7 @@ namespace CompressedStaticFiles
             {
                 // a compressed version exists and is smaller, change the path to serve the compressed file
                 var matchedPath = context.Request.Path.Value + Path.GetExtension(matchedFile.Name);
-                return new CompressedAlternativeFile(logger, originalFile, matchedFile);                
+                return new CompressedAlternativeFile(logger, originalFile, matchedFile, options?.Value?.VirtualProviders);                
             }
             return null;
         }

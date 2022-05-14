@@ -30,7 +30,9 @@ namespace CompressedStaticFiles.Tests
             var builder = new WebHostBuilder()
                 .ConfigureServices(sp =>
                 {
-                    sp.AddCompressedStaticFiles();
+                    sp.AddCompressedStaticFiles(o => o.VirtualProviders = new string[] {
+                        "Microsoft.Extensions.FileProviders.Embedded.Manifest.ManifestFileInfo"
+                    });
                 })
                 .Configure(app =>
                 {
@@ -193,9 +195,9 @@ namespace CompressedStaticFiles.Tests
                     {
                         return async context =>
                         {
-                        // this test should never call the next middleware
-                        // set status code to 999 to detect a test failure
-                        context.Response.StatusCode = 999;
+                            // this test should never call the next middleware
+                            // set status code to 999 to detect a test failure
+                            context.Response.StatusCode = 999;
                         };
                     });
                 }).UseWebRoot(Path.Combine(Environment.CurrentDirectory, "wwwroot"));

@@ -4,6 +4,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace CompressedStaticFiles
 {
@@ -12,12 +13,14 @@ namespace CompressedStaticFiles
         private readonly ILogger logger;
         private readonly IFileInfo originalFile;
         private readonly IFileInfo alternativeFile;
+        private readonly string[] virtualProviders;
 
-        public CompressedAlternativeFile(ILogger logger, IFileInfo originalFile, IFileInfo alternativeFile)
+        public CompressedAlternativeFile(ILogger logger, IFileInfo originalFile, IFileInfo alternativeFile, string[] virtualProviders = null)
         {
             this.logger = logger;
             this.originalFile = originalFile;
             this.alternativeFile = alternativeFile;
+            this.virtualProviders = virtualProviders;
         }
 
         public long Size => alternativeFile.Length;
@@ -36,6 +39,24 @@ namespace CompressedStaticFiles
             foreach (var compressionType in CompressedAlternativeFileProvider.CompressionTypes.Keys)
             {
                 var fileExtension = CompressedAlternativeFileProvider.CompressionTypes[compressionType];
+
+                //lets check for a different file provider first
+                var fileType = staticFileResponseContext.File.GetType();
+
+                //if it matches the alternate file provider, use request path instead of physical path and the code will work 
+                //this can also be determined by simply physicalpath==null but we will still check for providers to keep 
+                //things robust on different unknown use cases
+                if (staticFileResponseContext.File.Name.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase) && 
+                    staticFileResponseContext.File.PhysicalPath == null && virtualProviders?.Contains($"{fileType?.FullName}") == true)
+                {
+                    if (contentTypeProvider.TryGetContentType(staticFileResponseContext.Context.Request.Path.Value.Remove(
+                    staticFileResponseContext.Context.Request.Path.Value.Length - fileExtension.Length, fileExtension.Length), out var providerContentType))
+                        staticFileResponseContext.Context.Response.ContentType = providerContentType;
+                    staticFileResponseContext.Context.Response.Headers.Add("Content-Encoding", new[] { compressionType });
+                    //short-circuit
+                    return;
+                }
+
                 if (staticFileResponseContext.File.Name.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase))
                 {
                     // we need to restore the original content type, otherwise it would be based on the compression type
