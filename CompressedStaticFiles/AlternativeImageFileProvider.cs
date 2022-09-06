@@ -73,7 +73,7 @@ namespace CompressedStaticFiles
             return GetCostRatioForFileExtension(fileExtension);
         }
 
-        public IFileAlternative GetAlternative(HttpContext context, IFileProvider fileSystem, IFileInfo originalFile)
+        public IFileAlternative GetAlternative(HttpContext context, IFileProvider fileSystem, IFileInfo originalFile, PathString filePath)
         {
             if (!options.Value.EnableImageSubstitution)
             {
@@ -87,9 +87,10 @@ namespace CompressedStaticFiles
             var originalAlternativeImageFile = new AlternativeImageFile(logger, originalFile, originalFile, GetCostRatioForPath(originalFile.PhysicalPath));
 
             AlternativeImageFile matchedFile = originalAlternativeImageFile;
-            var path = context.Request.Path.ToString();
+            var path = filePath.ToString();
             if (!path.Contains('.'))
             {
+                //no file extension, here is no way to check for alternatives
                 return null;
             }
             var withoutExtension = path.Substring(0, path.LastIndexOf('.'));

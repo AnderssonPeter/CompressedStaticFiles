@@ -101,7 +101,12 @@ namespace CompressedStaticFiles
         private void ProcessRequest(HttpContext context)
         {
             var fileSystem = _staticFileOptions.Value.FileProvider;
-            var originalFile = fileSystem.GetFileInfo(context.Request.Path);
+            if (!context.Request.Path.StartsWithSegments(_staticFileOptions.Value.RequestPath, out var filePath))
+            {
+                return;
+            }
+
+            var originalFile = fileSystem.GetFileInfo(filePath);
 
             if (!originalFile.Exists || originalFile.IsDirectory)
             {
@@ -109,7 +114,7 @@ namespace CompressedStaticFiles
             }
 
             //Find the smallest file from all our alternative file providers
-            var smallestAlternativeFile = alternativeFileProviders.Select(alternativeFileProvider => alternativeFileProvider.GetAlternative(context, fileSystem, originalFile))
+            var smallestAlternativeFile = alternativeFileProviders.Select(alternativeFileProvider => alternativeFileProvider.GetAlternative(context, fileSystem, originalFile, filePath))
                                                                   .Where(af => af != null)
                                                                   .OrderBy(alternativeFile => alternativeFile?.Cost)
                                                                   .FirstOrDefault();
