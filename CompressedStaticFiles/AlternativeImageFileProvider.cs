@@ -87,7 +87,7 @@ namespace CompressedStaticFiles
             var originalAlternativeImageFile = new AlternativeImageFile(logger, originalFile, originalFile, GetCostRatioForPath(originalFile.PhysicalPath));
 
             AlternativeImageFile matchedFile = originalAlternativeImageFile;
-            var path = context.Request.Path.ToString();
+            var path = context.Request.Path.Value;
             if (!path.Contains('.'))
             {
                 return null;

@@ -101,7 +101,7 @@ namespace CompressedStaticFiles
         private void ProcessRequest(HttpContext context)
         {
             var fileSystem = _staticFileOptions.Value.FileProvider;
-            var originalFile = fileSystem.GetFileInfo(context.Request.Path);
+            var originalFile = fileSystem.GetFileInfo(context.Request.Path.Value);
 
             if (!originalFile.Exists || originalFile.IsDirectory)
             {
