@@ -266,6 +266,46 @@ namespace CompressedStaticFiles.Tests
             contentTypeValues.Single().Should().Be("text/html");
         }
 
+        [Fact]
+        public async Task HandleRequestPath()
+        {
+            // Arrange
+            var builder = new WebHostBuilder()
+                .ConfigureServices(sp =>
+                {
+                    sp.AddCompressedStaticFiles();
+                })
+                .Configure(app =>
+                {
+                    app.UseCompressedStaticFiles(new StaticFileOptions
+                    {
+                        RequestPath = "/assets"
+                    });
+                    app.Use(next =>
+                    {
+                        return async context =>
+                        {
+                            // this test should never call the next middleware
+                            // set status code to 999 to detect a test failure
+                            context.Response.StatusCode = 999;
+                        };
+                    });
+                }).UseWebRoot(Path.Combine(Environment.CurrentDirectory, "wwwroot"));
+            var server = new TestServer(builder);
+
+            // Act
+            var client = server.CreateClient();
+            client.DefaultRequestHeaders.Add("Accept-Encoding", "br, gzip");
+            var response = await client.GetAsync("/assets/i_also_exist_compressed.html");
+            var content = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.StatusCode.Should().Be(200);
+            content.Should().Be("br");
+            response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
+            contentTypeValues.Single().Should().Be("text/html");
+        }
+
         /// <summary>
         /// Should not send precompressed content if it has been disabled.
         /// </summary>

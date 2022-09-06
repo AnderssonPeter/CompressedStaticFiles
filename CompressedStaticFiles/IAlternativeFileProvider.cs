@@ -12,6 +12,6 @@ namespace CompressedStaticFiles
     public interface IAlternativeFileProvider
     {
         void Initialize(FileExtensionContentTypeProvider fileExtensionContentTypeProvider);
-        IFileAlternative GetAlternative(HttpContext context, IFileProvider fileSystem, IFileInfo originalFile);
+        IFileAlternative GetAlternative(HttpContext context, IFileProvider fileSystem, IFileInfo originalFile, PathString filePath);
     }
 }

@@ -44,7 +44,7 @@ namespace CompressedStaticFiles
             return validCompressionTypes;
         }
 
-        public IFileAlternative GetAlternative(HttpContext context, IFileProvider fileSystem, IFileInfo originalFile)
+        public IFileAlternative GetAlternative(HttpContext context, IFileProvider fileSystem, IFileInfo originalFile, PathString filePath)
         {
             if (!options.Value.EnablePrecompressedFiles)
             { 
@@ -55,7 +55,7 @@ namespace CompressedStaticFiles
             foreach (var compressionType in supportedEncodings)
             {
                 var fileExtension = CompressionTypes[compressionType];
-                var file = fileSystem.GetFileInfo(context.Request.Path.Value + fileExtension);
+                var file = fileSystem.GetFileInfo(filePath.Value + fileExtension);
                 if (file.Exists && file.Length < matchedFile.Length)
                 {
                     matchedFile = file;
