@@ -55,7 +55,7 @@ namespace CompressedStaticFiles
             foreach (var compressionType in supportedEncodings)
             {
                 var fileExtension = CompressionTypes[compressionType];
-                var file = fileSystem.GetFileInfo(filePath + fileExtension);
+                var file = fileSystem.GetFileInfo(filePath.Value + fileExtension);
                 if (file.Exists && file.Length < matchedFile.Length)
                 {
                     matchedFile = file;

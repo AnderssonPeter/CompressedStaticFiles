@@ -344,6 +344,79 @@ namespace CompressedStaticFiles.Tests
             response.StatusCode.Should().Be(200);
             content.Should().Be("uncompressed");
         }
-    }
+
+		/// <summary>
+		/// Files with spaces in the file name should be supported
+		/// </summary>
+		/// <returns></returns>
+		[Fact]
+		public async Task SupportsSpaces()
+		{
+			// Arrange
+			var builder = new WebHostBuilder()
+				.ConfigureServices(sp => {
+					sp.AddCompressedStaticFiles();
+				})
+				.Configure(app => {
+					app.UseCompressedStaticFiles();
+					app.Use(next => {
+						return async context => {
+							// this test should never call the next middleware
+							// set status code to 999 to detect a test failure
+							context.Response.StatusCode = 999;
+						};
+					});
+				}).UseWebRoot(Path.Combine(Environment.CurrentDirectory, "wwwroot"));
+			var server = new TestServer(builder);
+
+			// Act
+			var client = server.CreateClient();
+			client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
+			var response = await client.GetAsync("/with spaces.html");
+			var content = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			response.StatusCode.Should().Be(200);
+			content.Should().Be("gzip");
+			response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
+			contentTypeValues.Single().Should().Be("text/html");
+		}
+
+		/// <summary>
+		/// Files with spaces in the file name should be supported
+		/// </summary>
+		/// <returns></returns>
+		[Fact]
+		public async Task SupportsSpaces_Encoded() {
+			// Arrange
+			var builder = new WebHostBuilder()
+				.ConfigureServices(sp => {
+					sp.AddCompressedStaticFiles();
+				})
+				.Configure(app => {
+					app.UseCompressedStaticFiles();
+					app.Use(next => {
+						return async context => {
+							// this test should never call the next middleware
+							// set status code to 999 to detect a test failure
+							context.Response.StatusCode = 999;
+						};
+					});
+				}).UseWebRoot(Path.Combine(Environment.CurrentDirectory, "wwwroot"));
+			var server = new TestServer(builder);
+
+			// Act
+			var client = server.CreateClient();
+			client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
+			var response = await client.GetAsync("/with%20spaces.html");
+			var content = await response.Content.ReadAsStringAsync();
+
+			// Assert
+			response.StatusCode.Should().Be(200);
+			content.Should().Be("gzip");
+			response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
+			contentTypeValues.Single().Should().Be("text/html");
+		}
+	}
 }
 
