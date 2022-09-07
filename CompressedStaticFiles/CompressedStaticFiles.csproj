@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;</TargetFrameworks>
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <Version>2.1.0</Version>
     <Authors>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda, Ilya Palkin</Authors>
     <Company>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda, Ilya Palkin</Company>
@@ -10,8 +10,11 @@
     <PackageProjectUrl>https://github.com/AnderssonPeter/CompressedStaticFiles</PackageProjectUrl>
     <PackageTags>aspnetcore;staticfiles;compression;precompressed;gzip;brotli;zopfli;webp;avif;</PackageTags>
     <PackageReleaseNotes>2.1.0
-Removed support for .net 3.1
+Added support for space in filenames
 Added support for RequestPath
+Added support for .net 6.0
+Removed support for .net 5.0
+Removed support for .net 3.1
 2.0.0
 Added support for alternative image formats
 Added support for .net 5
