@@ -3,14 +3,15 @@
   <PropertyGroup>
     <TargetFrameworks>net5.0;</TargetFrameworks>
     <Version>2.1.0</Version>
-    <Authors>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda</Authors>
-    <Company>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda</Company>
+    <Authors>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda, Ilya Palkin</Authors>
+    <Company>Peter Andersson;Andrey Kudashkin;Mathias Raacke,Arian Kadkhoda, Ilya Palkin</Company>
     <Description>Send compressed static files to the browser without having to compress on demand, also has support for sending more advanced image formats when the browser indicates that i has support for it.
       Files need to be compressed and converted to other image formats before deploying.</Description>
     <PackageProjectUrl>https://github.com/AnderssonPeter/CompressedStaticFiles</PackageProjectUrl>
     <PackageTags>aspnetcore;staticfiles;compression;precompressed;gzip;brotli;zopfli;webp;avif;</PackageTags>
     <PackageReleaseNotes>2.1.0
 Removed support for .net 3.1
+Added support for RequestPath
 2.0.0
 Added support for alternative image formats
 Added support for .net 5

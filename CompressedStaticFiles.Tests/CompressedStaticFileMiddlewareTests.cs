@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -49,7 +50,7 @@ namespace CompressedStaticFiles.Tests
             var response = await server.CreateClient().GetAsync("/this_file_does_not_exist.html");
 
             // Assert
-            response.StatusCode.Should().Be(999);
+            response.StatusCode.Should().Be((HttpStatusCode)999);
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             content.Should().Be("uncompressed");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("text/html");
@@ -126,7 +127,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             content.Should().Be("br");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("text/html");
@@ -167,7 +168,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             content.Should().Be("gzip");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("text/html");
@@ -208,7 +209,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             content.Should().Be("uncompressed");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("text/html");
@@ -260,7 +261,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             content.Should().Be("fileprovider");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("text/html");
@@ -300,7 +301,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             content.Should().Be("br");
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("text/html");
@@ -341,7 +342,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             content.Should().Be("uncompressed");
         }
     }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -45,7 +46,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("image/avif");
         }
@@ -82,7 +83,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("image/webp");
         }
@@ -118,7 +119,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("image/webp");
         }
@@ -154,7 +155,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.Contains("Content-Encoding").Should().BeFalse();
         }
 
@@ -188,7 +189,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("image/jpeg");
         }
@@ -224,7 +225,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("image/jpeg");
         }
@@ -260,7 +261,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("image/jpeg");
         }
@@ -296,7 +297,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("image/avif");
         }
@@ -332,7 +333,7 @@ namespace CompressedStaticFiles.Tests
             var content = await response.Content.ReadAsStringAsync();
 
             // Assert
-            response.StatusCode.Should().Be(200);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Content.Headers.TryGetValues("Content-Type", out IEnumerable<string> contentTypeValues);
             contentTypeValues.Single().Should().Be("image/webp");
         }
