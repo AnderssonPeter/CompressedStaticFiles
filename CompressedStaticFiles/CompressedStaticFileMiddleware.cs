@@ -106,7 +106,7 @@ namespace CompressedStaticFiles
                 return;
             }
 
-            var originalFile = fileSystem.GetFileInfo(filePath);
+            var originalFile = fileSystem.GetFileInfo(filePath.Value);
 
             if (!originalFile.Exists || originalFile.IsDirectory)
             {

@@ -87,7 +87,7 @@ namespace CompressedStaticFiles
             var originalAlternativeImageFile = new AlternativeImageFile(logger, originalFile, originalFile, GetCostRatioForPath(originalFile.PhysicalPath));
 
             AlternativeImageFile matchedFile = originalAlternativeImageFile;
-            var path = filePath.ToString();
+            var path = filePath.Value;
             if (!path.Contains('.'))
             {
                 //no file extension, here is no way to check for alternatives
