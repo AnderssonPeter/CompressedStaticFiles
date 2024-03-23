@@ -16,7 +16,9 @@ namespace CompressedStaticFiles
             new Dictionary<string, string>()
             {
                 { "gzip", ".gz" },
-                { "br", ".br" }
+                { "br", ".br" },
+                { "br", ".br" },
+                { "zstd", ".zst" }
             };
 
         private readonly ILogger logger;
@@ -32,6 +34,7 @@ namespace CompressedStaticFiles
         {
             // the StaticFileProvider would not serve the file if it does not know the content-type
             fileExtensionContentTypeProvider.Mappings[".br"] = "application/brotli";
+            fileExtensionContentTypeProvider.Mappings[".zst"] = "application/zstd";
         }
 
         /// <summary>
