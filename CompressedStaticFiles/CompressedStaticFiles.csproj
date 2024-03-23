@@ -8,7 +8,7 @@
     <Description>Send compressed static files to the browser without having to compress on demand, also has support for sending more advanced image formats when the browser indicates that i has support for it.
       Files need to be compressed and converted to other image formats before deploying.</Description>
     <PackageProjectUrl>https://github.com/AnderssonPeter/CompressedStaticFiles</PackageProjectUrl>
-    <PackageTags>aspnetcore;staticfiles;compression;precompressed;gzip;brotli;zopfli;webp;avif;</PackageTags>
+    <PackageTags>aspnetcore;staticfiles;compression;precompressed;gzip;brotli;zopfli;webp;avif;Zstandard;zst</PackageTags>
     <PackageReleaseNotes>2.2.0
 Added support for Zstandard compression
 2.1.0
