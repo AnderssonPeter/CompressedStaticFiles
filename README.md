@@ -36,8 +36,8 @@ This project allows you to serve precompressed files to the browser without havi
 ## Getting Started
 
 ### Precompress content
-Static nonimage files have to be precompressed using [Zopfli](https://en.wikipedia.org/wiki/Zopfli) and/or [Brotli](https://en.wikipedia.org/wiki/Brotli), see the example for how to do it with gulp.
-The files must have the exact same filename as the source + `.br` or `.gzip` (`index.html` would be `index.html.br` for the Brotli version).
+Static nonimage files have to be precompressed using [Zopfli](https://en.wikipedia.org/wiki/Zopfli), [Brotli](https://en.wikipedia.org/wiki/Brotli) and/or [ZStandard](https://en.wikipedia.org/wiki/Zstd), see the example for how to do it with gulp.
+The files must have the exact same filename as the source + `.br` or `.gzip` (`index.html` would be `index.html.br` for the Brotli version and `index.html.zst` for Zstandard).
 
 ### Encode images
 Modern browsers support new image formats like webp and avif they can store more pixels per byte.
