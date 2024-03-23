@@ -17,7 +17,6 @@ namespace CompressedStaticFiles
             {
                 { "gzip", ".gz" },
                 { "br", ".br" },
-                { "br", ".br" },
                 { "zstd", ".zst" }
             };
 
@@ -33,8 +32,13 @@ namespace CompressedStaticFiles
         public void Initialize(FileExtensionContentTypeProvider fileExtensionContentTypeProvider)
         {
             // the StaticFileProvider would not serve the file if it does not know the content-type
-            fileExtensionContentTypeProvider.Mappings[".br"] = "application/brotli";
-            fileExtensionContentTypeProvider.Mappings[".zst"] = "application/zstd";
+            if (!fileExtensionContentTypeProvider.Mappings.ContainsKey(".br")) {
+                fileExtensionContentTypeProvider.Mappings[".br"] = "application/brotli";
+            }
+            if (!fileExtensionContentTypeProvider.Mappings.ContainsKey(".zst"))
+            {
+                fileExtensionContentTypeProvider.Mappings[".zst"] = "application/zstd";
+            }
         }
 
         /// <summary>
